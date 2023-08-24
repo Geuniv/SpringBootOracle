@@ -2,9 +2,6 @@ Spring Boot Framworks, MyBatis, Tessract5.x 연동 실습
 
 𖤐 Spring Boot 2학기 실습 𖤐
 
-작성자 : 한국폴리텍대학 서울강서캠퍼스 빅데이터과 이협건 교수
-이메일 : hglee67@kopo.ac.kr
-빅데이터학과 입학 상담 오픈채팅방 : https://open.kakao.com/o/gEd0JIad
 주요 실습 내용
 
 Oracle 기반 공지사항 구현 실습
@@ -16,4 +13,3 @@ CGV 영화순위, 학교 식당 메뉴 웹 크롤링 실습
 웹 소켓을 이용한 채팅 구현하기
 네이버 파파고 OpenAPI를 활용하여 다국어 채팅 구현하기
 Tessract를 이용하여 이미지의 객체 인식하기
-학과 수업에 대한 궁금증은 학과 오픈채팅방에 문의 : https://open.kakao.com/o/gEd0JIad
