@@ -50,7 +50,7 @@
         SELECT USER_ID, USER_NAME, EMAIL, ADDR1, ADDR2,
                REG_ID, REG_DT, CHG_ID, CHG_DT, USER_SEQ
         FROM USER_INFO
-        ORDER BY USER_SEQ DESC
+        ORDER BY REG_DT DESC
     </select>
 
     <!-- 게시판 상세보기 쿼리 -->
