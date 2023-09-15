@@ -43,7 +43,15 @@
             for (MailDTO dto : rList) {
         %>
         <div class="divTableRow">
-        <div class="divTableCell"><%=CmmUtil.nvl(dto.getMailSeq())%></div>
+            <%
+                if (CmmUtil.nvl(dto.getMailSeq()).equals("Y")) { //공지글이라면, [공지]표시
+                    out.print("<div class=\"divTableCell\">공지</div>");
+
+                } else { //공지글이 아니라면, 글번호 보여주기
+                    out.print("<div class=\"divTableCell\">" + CmmUtil.nvl(dto.getMailSeq()) + "</div>");
+
+                }
+            %>
         <div class="divTableCell"><%=CmmUtil.nvl(dto.getToMail())%></div>
         <div class="divTableCell"><%=CmmUtil.nvl(dto.getTitle())%></div>
         <div class="divTableCell"><%=CmmUtil.nvl(dto.getContents())%></div>
