@@ -61,4 +61,12 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <!-- 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 ( 2023.09.21 ) -->
+    <select id="getLogin" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT USER_ID, USER_NAME, EMAIL
+        FROM USER_INFO
+        WHERE USER_ID = #{userId}
+            AND PASSWORD = #{password}
+    </select>
+
 </mapper>
