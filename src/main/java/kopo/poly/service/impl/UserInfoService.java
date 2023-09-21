@@ -7,6 +7,7 @@ import kopo.poly.persistance.mapper.IUserInfoMapper;
 import kopo.poly.service.IMailService;
 import kopo.poly.service.IUserInfoService;
 import kopo.poly.util.CmmUtil;
+import kopo.poly.util.DateUtil;
 import kopo.poly.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -138,5 +140,49 @@ public class UserInfoService implements IUserInfoService {
         log.info(this.getClass().getName() + ".getUserInfo Stert !");
 
         return userInfoMapper.getUserInfo(pDTO);
+    }
+
+    /**
+     * 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 ( 2023.09.21 )
+     *
+     * @param pDTO 로그인을 위한 회원아이디, 비밀번호
+     * @return 로그인된 회원아이디 정보
+     */
+    @Override
+    public UserInfoDTO getLogin(UserInfoDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".getLogin Start !");
+
+        // 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기
+        // userInfoMapper.getUserLoginCheck(pDTO) 함수 실행 결과가 Null 발생하면, UserInfoDTO 메모리에 올리기
+        UserInfoDTO rDTO = Optional.ofNullable(userInfoMapper.getLogin(pDTO)).orElseGet(UserInfoDTO::new);
+
+        /*
+        * userInfoMapper로 부터 SELECT 쿼리의 결과로 회원아이디를 받아왔다면, 로그인 성공 ! !
+        *
+        * DTO의 변수에 값이 있는지 확인하기 처리속도 측면에서 가장 좋은 방법은 별수의 길이를 가져오는 것이다.
+        * 따라서 .length() 함수를 통해 회원아이디의 글자수를 가져와 0 보다 큰지 비교한다.
+        * 0보다 크다면, 글자가 존재하는 것이기 때문에 값이 존재한다.
+        */
+        if (CmmUtil.nvl(rDTO.getUserId()).length() > 0) {
+
+            MailDTO mDTO = new MailDTO();
+
+            // 아이디, 패스워드 일치하는지 체크하는 쿼리에서 이메일 값 받아오기 ( 아직 암호화되어 넘어오기 때문에 복호화 수행함 )
+            mDTO.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(rDTO.getEmail())));
+
+            mDTO.setTitle("로그인 알림 !"); // 제목
+
+            // 메일 내용에 가입자 이름 넣어서 내용 발송
+            mDTO.setContents(DateUtil.getDateTime("yyyy.MM.dd hh:mm:ss") + " 에"
+                            + CmmUtil.nvl(rDTO.getUserName()) + "님이 로그인하였습니다.");
+
+            // 회원 가입이 성공했기 때문에 메일을 발송함
+            mailService.doSendMail(mDTO);
+        }
+
+        log.info(this.getClass().getName() + ".getLogin End !");
+
+        return rDTO;
     }
 }
