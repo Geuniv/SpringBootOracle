@@ -22,6 +22,7 @@
             })
 
             // 버튼 클릭했을때, 발생되는 이벤트 생성함 ( onclick 이벤트와 동일함 )
+            // 유저의 세션정보값을 담은 상세보기 페이지로 이동
             $("#btnInfo").on("click", function () {
                 location.href = "/user/userInfoSession";
             })
