@@ -3,9 +3,11 @@ package kopo.poly.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString // 이 어노테이션을 추가하고 컨트롤러에서 log.info ("pDTO" + pDTO.tostring()); 를 하면 해당 DTO에 있는 값들이 일렬로 출력됨
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class UserInfoDTO {
 
