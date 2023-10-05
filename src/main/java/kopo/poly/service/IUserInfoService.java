@@ -1,5 +1,6 @@
 package kopo.poly.service;
 
+import kopo.poly.dto.MailDTO;
 import kopo.poly.dto.NoticeDTO;
 import kopo.poly.dto.UserInfoDTO;
 import org.apache.catalina.User;
@@ -25,4 +26,13 @@ public interface IUserInfoService {
 
     // 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 ( 2023.09.20 )
     UserInfoDTO getLogin(UserInfoDTO pDTO) throws Exception;
+
+    // 아이디, 비밀번호 찾기에 활용
+    UserInfoDTO searchUserIdOrPasswordProc(UserInfoDTO pDTO) throws Exception;
+
+    // 비밀번호 재설정
+    int newPasswordProc(UserInfoDTO pDTO) throws Exception;
+
+    // 비밀번호 찾기 페이지 이메일 인증번호
+    UserInfoDTO getEmailExistsPs(UserInfoDTO pDTO) throws Exception;
 }

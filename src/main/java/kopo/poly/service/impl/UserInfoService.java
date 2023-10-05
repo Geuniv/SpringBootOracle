@@ -185,4 +185,71 @@ public class UserInfoService implements IUserInfoService {
 
         return rDTO;
     }
+
+    /*
+    * Controller 에서 전달받는 userId 변수 값의 존재여부
+    * - 값이 존재하면, 비밀번호 찾기*/
+    @Override
+    public UserInfoDTO searchUserIdOrPasswordProc(UserInfoDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".searchUserIdOrPasswordProc Start !");
+
+        UserInfoDTO rDTO = userInfoMapper.getUserId(pDTO);
+
+        log.info(this.getClass().getName() + ".searchUserIdOrPasswordProc End !");
+
+        return rDTO;
+    }
+
+    @Override
+    public int newPasswordProc(UserInfoDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".newPasswordProc Start !");
+
+        // 비밀번호 재설정
+        int success = userInfoMapper.updatePassword(pDTO);
+
+        log.info(this.getClass().getName() + ".newPasswordProc End !");
+
+        return success;
+    }
+
+    /*
+    * 비밀번호 찾기 페이지 인증번호 발송
+    */
+    @Override
+    public UserInfoDTO getEmailExistsPs(UserInfoDTO pDTO) throws Exception {
+        log.info(this.getClass().getName() + ".emailCheck Start !");
+
+        // DB 이메일이 존재하는지 SQL 쿼리 실행
+        // SQL 쿼리에 COUNT()를 사용하기 때문에 반드시 조회 결과는 존재함
+        UserInfoDTO rDTO = userInfoMapper.getEmailExists(pDTO);
+
+        String existsYN = CmmUtil.nvl(rDTO.getExistsYn());
+
+        log.info("existsYN : " + existsYN);
+
+        if (existsYN.equals("Y")) {
+
+            // 6자리 랜덤 숫자 생성하기
+            int authNumber = ThreadLocalRandom.current().nextInt(100000, 1000000);
+
+            log.info("authNumber : " + authNumber);
+
+            // 인증번호 발송 로직
+            MailDTO dto = new MailDTO();
+
+            dto.setTitle("이메일 중복 학인 인증번호 발송 메일");
+            dto.setContents("인증번호는 " + authNumber + " 입니다.");
+            dto.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(pDTO.getEmail())));
+
+            mailService.doSendMail(dto); // 이메일 발송
+
+            rDTO.setAuthNumber(authNumber); // 인증번호를 결과값에 넣어주기
+        }
+
+        log.info(this.getClass().getName() + ".emailCheck Start !");
+
+        return rDTO;
+    }
 }

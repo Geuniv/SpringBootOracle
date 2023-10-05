@@ -33,10 +33,10 @@
                     return;
                 }
 
-                f.method = "post"; // 비밀번호 찾기 정보 전송 방식
-                f.action = "/user/searchUserIdProc" // 비밀번호 찾기 URL
+                f.method = "post"; // 아이디 찾기 정보 전송 방식
+                f.action = "/user/searchUserIdProc" // 아이디 찾기 URL
 
-                f.submit(); // 비밀번호 찾기 정보 전송하기
+                f.submit(); // 아이디 찾기 정보 전송하기
             })
         })
     </script>
