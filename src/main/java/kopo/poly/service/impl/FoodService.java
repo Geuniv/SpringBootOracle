@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,7 +34,11 @@ public class FoodService implements IFoodService {
         // 사이트 접속 ( Http 프로토콜만 가능, Https 는 보안상 안됨 )
         doc = Jsoup.connect(url).get();
 
-        Element element = doc.select("table.tbl_table menu tbody");
+        /*
+        세부 태그는 이렇게 되어있음
+        Elements element = doc.select("table.tbl_table.menu tbody");
+        */
+        Elements element = doc.select("table.tbl_table.menu tbody");
         
         // Iterator 를 사용하여 영화 순위 정보를 가져오기
         Iterator<Element> foodIt = element.select("tr").iterator(); // 영화 순위
