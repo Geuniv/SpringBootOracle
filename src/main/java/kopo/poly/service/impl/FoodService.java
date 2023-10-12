@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class FoodService implements IFoodService {
+
+    @Scheduled(cron = "* * 3 * * *")
     @Override
     public List<FoodDTO> toDayFood() throws Exception {
 
@@ -61,7 +64,11 @@ public class FoodService implements IFoodService {
 
             /*
             * 수집되는 데이터 예 )
-              월요일 : 백미밥 , 돼지고기김치찌개 , 비엔나볶음 , 스크램블에그 , 건파래볶음 , 깍두기 , [알레르기유발:김치찌개(돼지고기)비엔나(돼지고기,밀)스크램블에그(계란)]
+              월요일 : 한글날
+              화요일 : 백미밥 , 돼지고기김치찌개 , 비엔나볶음 , 스크램블에그 , 건파래볶음 , 깍두기
+              수요일 : 크림파스타 , 양송이스프 , 모닝빵 , 샐러드 , 피클 , 추가밥,김치
+              목요일 : 백미밥 , 장터국밥 , 함박스테이크범벅 , 마늘쫑볶음 , 시금치겉절이 , 김치
+              금요일 : 백미밥 , 물만두국 , 김치제육볶음 , 진미도라지무침 , 고추양파무침 , 깍두기
               */
 
             // 요일별 식단 정보들어옴
