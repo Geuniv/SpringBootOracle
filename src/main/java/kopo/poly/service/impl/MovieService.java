@@ -38,7 +38,7 @@ public class MovieService implements IMovieService {
         // 로그 찍기 ( 추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다. )
         log.info(this.getClass().getName() + ".collectMovieRank Start !");
 
-        String collectTime = DateUtil.getDateTime("yyyyMMdd"); // 수집날짜 = 오늘 날짜
+        String collectTime = DateUtil.getDateTime("yyyyMMdd"); // 수집 날짜 = 오늘 날짜
 
         MovieDTO pDTO = new MovieDTO();
         pDTO.setCollectTime(collectTime);

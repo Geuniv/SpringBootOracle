@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="kopo.poly.persistance.mapper.IWeatherMapper">
+
+    <!-- 수집된 내용 DB에 등록 -->
+    <insert id="insertMovieInfo" parameterType="WeatherDTO">
+        INSERT INTO WEATHER_INFO
+        (COLLECT_TIME,
+         SEQ,
+         REGION,
+         TEMP,
+         WEATHER,
+         REG_ID,
+         CHG_ID)
+        VALUES (#{collectTime},
+                (SELECT NVL(MAX(A.SEQ), 0) + 1 FROM MOVIE_INFO A WHERE A.COLLECT_TIME = #{collectTime}),
+                #{region},
+                #{temp},
+                #{weather},
+                #{regId},
+                #{regId})
+    </insert>
+
+    <!-- DB에 저장된 영화 순위 삭제하기 -->
+    <delete id="deleteMovieInfo" parameterType="WeatherDTO">
+        DELETE
+        FROM WEATHER_INFO
+        WHERE COLLECT_TIME = #{collectTime}
+    </delete>
+
+    <select id="getWeatherInfo" parameterType="WeatherDTO" resultType="WeatherDTO">
+        SELECT COLLECT_TIME,
+               SEQ,
+               REGION,
+               TEMP,
+               WEATHER,
+               REG_ID,
+               CHG_ID
+        FROM WEATHER_INFO
+        WHERE COLLECT_TIME LIKE #{collectTime} || '%'
+        ORDER BY SEQ ASC
+    </select>
+
+</mapper>
