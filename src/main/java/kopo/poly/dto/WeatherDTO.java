@@ -1,13 +1,12 @@
 package kopo.poly.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class WeatherDTO {
 
     private String collectTime; // 수집시간
@@ -20,6 +19,8 @@ public class WeatherDTO {
 
     private String weather; // 현재 날씨
 
+    
+    // 아래에 있는 등록자 or 등록일자와 수정자 or 수정일자는 굳이 넣을 필요는 없지만 그냥 추가함
     private String regId;
 
     private String regDt;

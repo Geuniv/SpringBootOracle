@@ -1,10 +1,11 @@
 package kopo.poly.persistance.mapper;
 
-import kopo.poly.dto.MovieDTO;
 import kopo.poly.dto.WeatherDTO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface IWeatherMapper {
 
     // 수집된 영화 순위 DB에 등록하기
