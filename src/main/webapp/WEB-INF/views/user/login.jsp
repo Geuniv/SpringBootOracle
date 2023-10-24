@@ -92,7 +92,7 @@
     </div>
     <div>
         <button id="btnLogin" type="button"><a href="loginResult"> 로그인</a></button>
-        <button id="btnSend" type="button"><a href="userList"> 회원가입</a></button>
+        <button id="btnSend" type="button"><a href="userRegForm"> 회원가입</a></button>
         <button id="btnSearchUserId" type="button"><a href="searchUserId"> 아이디 찾기</a></button>
         <button id="btnSearchPassword" type="button"><a href="searchPassword"> 비밀번호 찾기</a></button>
     </div>

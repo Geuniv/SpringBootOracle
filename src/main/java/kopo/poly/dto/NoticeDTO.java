@@ -2,6 +2,7 @@ package kopo.poly.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * lombok은 코딩을 줄이기 위해 @어노테이션을 통한 자동 코드 완성기능임

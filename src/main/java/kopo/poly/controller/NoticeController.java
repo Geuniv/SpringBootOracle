@@ -54,6 +54,9 @@ public class NoticeController {
         // 추후 로그인을 구현할 것으로 가정하고, 공지사항 리스트 출력하는 함수에서 로그인 한 것처럼 Session 값을 생성함
         session.setAttribute("SESSION_USER_ID", "USER01");
 
+
+        log.info("테스트");
+
         // 공지사항 리스트 조회하기
         // Java 8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
         List<NoticeDTO> rList = Optional.ofNullable(noticeService.getNoticeList())
@@ -67,6 +70,8 @@ public class NoticeController {
 
         // 조회된 리스트 결과값 넣어주기
         model.addAttribute("rList", rList);
+
+        log.info("rList : " + rList );
 
         // 로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".noticeList End!");
