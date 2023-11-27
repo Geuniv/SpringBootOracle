@@ -322,7 +322,9 @@ public class OcrController {
         } else {
             res = "이미지 파일이 아니라서 인식이 불가능합니다.";
         }
+
         model.addAttribute("res", res);
+
         log.info(this.getClass().getName() + ".readImage End!");
 
         return "ocr/readImage";
